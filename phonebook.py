@@ -53,10 +53,12 @@ def del_user():
 def show_user():
     user_name = input('Введите имя - ')
     c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
+
     if c.fetchone() is None:
         print('Такого имени нет в справочнике.')
     else:
-        print(c.fetchone())
+        for value in c.execute("SELECT name FROM phonebook WHERE name = '{user_name}'"):
+            print(value)
 
 
 
