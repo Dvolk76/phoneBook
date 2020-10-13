@@ -16,7 +16,12 @@ def screen_cleaner():
 
 def show_all():
     for value in c.execute("SELECT * FROM phonebook"):
-        print(value)
+        a = value[0]
+        b = value[1]
+        print("Имя - ", a,
+              '  ',
+              'Номер - ', b
+              )
 
 
 def add_user():
@@ -53,17 +58,23 @@ def show_user():
     c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
     the_user = c.fetchone()
     if the_user is None:
-        print('Такого имени нет в справочнике!')
+        print('\nТакого имени нет в справочнике!')
     else:
         c.execute(f"SELECT name, number FROM phonebook WHERE name = '{user_name}'")
         the_user = c.fetchone()
-        print(the_user)
+        a = the_user[0]
+        b = the_user[1]
+        print("Имя - ", a,
+              '  ',
+              'Номер - ', b
+              )
 
 
 def to_choose():
     if choice == 0:
         exit()
     elif choice == 1:
+        screen_cleaner()
         show_all()
 
     elif choice == 2:
@@ -84,7 +95,8 @@ def to_choose():
 
 
 while True:
-    print("++++++++++++++++++++++++++++++++++\n"
+    print("\n\n\n\n\n"
+          "++++++++++++++++++++++++++++++++++\n"
           "+     Телефонный справочник      +\n"
           "++++++++++++++++++++++++++++++++++")
 
@@ -93,7 +105,7 @@ while True:
     print("2 - Добавить")
     print("3 - Изменить")
     print("4 - Удалить")
-    print("5 - Посмотреть")
+    print("5 - Поиск по имени")
     print("0 - Выйти")
     choice = int(input())
     to_choose()
