@@ -19,31 +19,26 @@ def show_all():
         print(value)
 
 
-
 def add_user():
-    user_name = input('Enter name - ')
-    user_phone = input('Enter number - ')
+    user_name = input('Введите имя - ')
+    user_phone = input('Введите номер - ')
     c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
     if c.fetchone() is None:
         c.execute("INSERT INTO phonebook VALUES (?,?)", (user_name, user_phone))
         conn.commit()
     else:
-        print('already EXIST!!')
-        # names = [(user_name, user_phone)]
-        # c.executemany("INSERT INTO phonebook VALUES (?,?,?)", names)
+        print('Такое имя уже существует!')
 
 
 def change_user():
-    user_name = input('Enter name - ')
-    # user_phone = input('Enter number - ')
+    user_name = input('Введите имя - ')
     c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
     if c.fetchone() is None:
-        print('NOT Eyi!!')
+        print('Такого имени нет в справочнике!')
     else:
         user_phone = input('Введите новый номер - ')
         c.execute(f"UPDATE phonebook SET number = '{user_phone}' WHERE name = '{user_name}'")
         conn.commit()
-
 
 
 def del_user():
@@ -56,22 +51,20 @@ def del_user():
 def show_user():
     user_name = input('Введите имя - ')
     c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
-
-    if c.fetchone() is None:
-        print('Такого имени нет в справочнике.')
+    the_user = c.fetchone()
+    if the_user is None:
+        print('Такого имени нет в справочнике!')
     else:
-        the_user = c.execute(f"SELECT name, number FROM phonebook WHERE name = '{user_name}'")
+        c.execute(f"SELECT name, number FROM phonebook WHERE name = '{user_name}'")
+        the_user = c.fetchone()
         print(the_user)
-
 
 
 def to_choose():
     if choice == 0:
         exit()
     elif choice == 1:
-        # screen_cleaner()
         show_all()
-        # print('ddd')
 
     elif choice == 2:
         screen_cleaner()
@@ -88,7 +81,6 @@ def to_choose():
     elif choice == 5:
         screen_cleaner()
         show_user()
-
 
 
 while True:
