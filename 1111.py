@@ -1,27 +1,9 @@
 import os
 
-
 while True:
 
-
-    print("++++++++++++++++++++++++++++++++++\n"
-          "+     Телефонный справочник      +\n"
-         "++++++++++++++++++++++++++++++++++")
-
-
-    print("Чего желаете?")
-    print("1 - Показать все")
-    print("2 - Добавить")
-    print("3 - Изменить")
-    print("4 - Удалить")
-    print("5 - Посмотреть")
-    print("0 - Выйти")
-    choice = input('-')
-    to_choose()
-
-    def screen_cleaner(flag):
-        if flag:
-            os.system('cls' if os.name == 'nt' else 'clear')
+    def screen_cleaner():
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 
     def to_choose():
@@ -29,7 +11,8 @@ while True:
             exit()
         elif choice == 1:
             screen_cleaner()
-            show_all()
+            # show_all()
+            print('ddd')
 
         elif choice == 2:
             screen_cleaner()
@@ -69,13 +52,16 @@ while True:
         pass
 
 
+    print("++++++++++++++++++++++++++++++++++\n"
+          "+     Телефонный справочник      +\n"
+          "++++++++++++++++++++++++++++++++++")
 
-
-
-
-
-
-
-
-
-
+    print("Чего желаете?")
+    print("1 - Показать все")
+    print("2 - Добавить")
+    print("3 - Изменить")
+    print("4 - Удалить")
+    print("5 - Посмотреть")
+    print("0 - Выйти")
+    choice = int(input())
+    to_choose()
