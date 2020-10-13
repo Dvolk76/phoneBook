@@ -1,13 +1,13 @@
 import os
 import sqlite3
+
 conn = sqlite3.connect("phonebook_db.sqlite")
 c = conn.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS phonebook
                   (name TEXT,
-                   phone number INT)
+                   number INT)
                """)
 conn.commit()
-
 
 
 def screen_cleaner():
@@ -15,25 +15,35 @@ def screen_cleaner():
 
 
 def show_all():
-    pass
+    for value in c.execute("SELECT * FROM phonebook"):
+        print(value)
+
 
 
 def add_user():
     user_name = input('Enter name - ')
     user_phone = input('Enter number - ')
-    c.execute("SELECT name FROM phonebook")
+    c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
     if c.fetchone() is None:
         c.execute("INSERT INTO phonebook VALUES (?,?)", (user_name, user_phone))
         conn.commit()
     else:
-        print('allready EXIST!!')
+        print('already EXIST!!')
         # names = [(user_name, user_phone)]
         # c.executemany("INSERT INTO phonebook VALUES (?,?,?)", names)
-    conn.commit()
 
 
 def change_user():
-    pass
+    user_name = input('Enter name - ')
+    # user_phone = input('Enter number - ')
+    c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
+    if c.fetchone() is None:
+        print('NOT Eyi!!')
+    else:
+        user_phone = input('Введите новый номер - ')
+        c.execute(f"UPDATE phonebook SET number = '{user_phone}' WHERE name = '{user_name}'")
+        conn.commit()
+
 
 
 def del_user():
@@ -41,16 +51,22 @@ def del_user():
 
 
 def show_user():
-    pass
+    user_name = input('Введите имя - ')
+    c.execute(f"SELECT name FROM phonebook WHERE name = '{user_name}'")
+    if c.fetchone() is None:
+        print('Такого имени нет в справочнике.')
+    else:
+        print(c.fetchone())
+
 
 
 def to_choose():
     if choice == 0:
         exit()
     elif choice == 1:
-        screen_cleaner()
-        # show_all()
-        print('ddd')
+        # screen_cleaner()
+        show_all()
+        # print('ddd')
 
     elif choice == 2:
         screen_cleaner()
@@ -68,6 +84,7 @@ def to_choose():
         screen_cleaner()
         show_user()
         pass
+
 
 while True:
     print("++++++++++++++++++++++++++++++++++\n"
