@@ -47,7 +47,10 @@ def change_user():
 
 
 def del_user():
-    pass
+    user_name = input('Введите имя - ')
+    c.execute(f"DELETE FROM phonebook WHERE name = '{user_name}'")
+    conn.commit()
+    print('УДАЛЕН!')
 
 
 def show_user():
@@ -57,8 +60,8 @@ def show_user():
     if c.fetchone() is None:
         print('Такого имени нет в справочнике.')
     else:
-        for value in c.execute("SELECT name FROM phonebook WHERE name = '{user_name}'"):
-            print(value)
+        the_user = c.execute(f"SELECT name, number FROM phonebook WHERE name = '{user_name}'")
+        print(the_user)
 
 
 
@@ -73,19 +76,19 @@ def to_choose():
     elif choice == 2:
         screen_cleaner()
         add_user()
-        pass
+
     elif choice == 3:
         screen_cleaner()
         change_user()
-        pass
+
     elif choice == 4:
         screen_cleaner()
         del_user()
-        pass
+
     elif choice == 5:
         screen_cleaner()
         show_user()
-        pass
+
 
 
 while True:
